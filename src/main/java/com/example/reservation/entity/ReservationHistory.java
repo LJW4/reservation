@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,25 +18,35 @@ import java.time.LocalDateTime;
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-@Table(name = "t_reservation_history")
+@Table(name = "t_reservation_history", indexes = {
+        @Index(name = "idx_parent_id_lesson_id", columnList = "parent_id, lesson_id")
+})
 public class ReservationHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "history_id")
     private Long historyId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id", nullable = false)
-    private Parent parent;
+    @Column(name = "parent_id")
+    private Long parentId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "schedule_id", nullable = false)
-    private LessonSchedule lessonSchedule;
+    @Column(name = "parent_name")
+    private String parentName;
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "lesson_id")
+    private Long lessonId;
+
+    @Column(name = "lesson_name")
+    private String lessonName;
+
+    @Comment("인원수")
     @Column(name = "capacity")
     private int capacity;
 
     @CreatedDate
-    @Column(name = "created_date_time")
-    private LocalDateTime createdDateTime;
+    @Column(name = "created_date", nullable = false)
+    private LocalDate createdDate;
 }

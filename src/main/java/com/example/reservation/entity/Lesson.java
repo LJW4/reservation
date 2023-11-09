@@ -26,4 +26,8 @@ public class Lesson {
     @Comment("수업명")
     @Column(name = "lesson_name", nullable = false, length = 20)
     private String lessonName;
+
+    @Comment("최대 인원수")
+    @Column(name = "max_capacity")
+    private int maxCapacity;
 }
