@@ -2,6 +2,7 @@ package com.example.reservation;
 
 import com.example.reservation.dto.ReservationDto;
 import com.example.reservation.repository.ReservationHistoryRepository;
+import com.example.reservation.service.ReservationHistoryService;
 import com.example.reservation.service.ReservationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +18,30 @@ public class ReservationTests {
     private ReservationService reservationService;
 
     @Autowired
-    private ReservationHistoryRepository reservationHistoryRepository;
+    private ReservationHistoryService reservationHistoryService;
 
     @Test
     @Transactional
     @Rollback(value = false)
     public void save() {
-        ReservationDto.LessonReservation lessonReservationDto = ReservationDto.LessonReservation.builder()
+        ReservationDto.Request.LessonReservation lessonReservationDto = ReservationDto.Request.LessonReservation.builder()
                 .parentId(1L)
                 .capacity(3)
-                .storeId(1L)
-                .lessonId(2L)
-                .reservationDate(LocalDate.of(2023, 11, 1))
+                .lessonId(5L)
+                .reservationDate(LocalDate.of(2023, 11, 3))
                 .build();
         reservationService.lessonReservation(lessonReservationDto);
     }
 
     @Test
     @Transactional
-    public void history() {
-        reservationHistoryRepository.findAllByParentId(1L);
+    public void historiesByParent() {
+        reservationHistoryService.findHistoriesByParent(1L, null, null);
+    }
+
+    @Test
+    @Transactional
+    public void historiesByStore() {
+        reservationHistoryService.findHistoriesByStore(1L, null, null);
     }
 }

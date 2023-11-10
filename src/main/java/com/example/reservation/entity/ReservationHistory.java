@@ -1,5 +1,6 @@
 package com.example.reservation.entity;
 
+import com.example.reservation.enumeration.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,4 +40,8 @@ public class ReservationHistory {
 
     @Column(name = "reservation_date", nullable = false)
     private LocalDate reservationDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "reservation_status")
+    private ReservationStatus reservationStatus;
 }

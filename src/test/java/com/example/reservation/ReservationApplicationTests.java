@@ -30,30 +30,34 @@ class ReservationApplicationTests {
 	@Transactional
 	@Rollback(value = false)
 	void contextLoads() {
-		Store savedStore = storeRepository.save(
-				Store.builder()
-						.storeName("강남점")
-						.postNumber("12345")
-						.address("서울특별시 강남구 강남대로 4")
-						.detailAddress("강남 빌딩 14층")
-						.build()
-		);
-		lessonRepository.saveAll(
-				IntStream.iterate(1, i -> i + 1)
-						.limit(4)
-						.mapToObj(i -> Lesson.builder()
-								.store(savedStore)
-								.lessonName("놀이" + i)
-								.maxCapacity(20)
+//		Store savedStore = storeRepository.save(
+//				Store.builder()
+//						.storeName("강남점2")
+//						.postNumber("12345")
+//						.address("서울특별시 강남구 강남대로 5")
+//						.detailAddress("강남 빌딩 11층")
+//						.build()
+//		);
+//		lessonRepository.saveAll(
+//				IntStream.iterate(1, i -> i + 1)
+//						.limit(4)
+//						.mapToObj(i -> Lesson.builder()
+//								.store(savedStore)
+//								.lessonName("놀이" + i)
+//								.maxCapacity(20)
+//								.build()
+//						)
+//						.collect(Collectors.toList())
+//		);
+		parentRepository.saveAll(
+				IntStream.iterate(2, i -> i + 1)
+						.limit(10)
+						.mapToObj(i -> Parent.builder()
+								.parentName("부모" + i)
+								.email("parent" + i + "@gmail.com")
 								.build()
 						)
 						.collect(Collectors.toList())
-		);
-		parentRepository.save(
-				Parent.builder()
-						.parentName("부모1")
-						.email("parent@gmail.com")
-						.build()
 		);
 	}
 

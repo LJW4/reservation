@@ -40,7 +40,7 @@ tasks.named('test') {
 }
 
 // Querydsl 설정부
-def generated = "$buildDir/generated/querydsl"
+def generated = "src/generated/querydsl"
 
 // querydsl QClass 파일 생성 위치를 지정
 tasks.withType(JavaCompile) {

@@ -1,7 +1,6 @@
 package com.example.reservation.repository.querydsl.impl;
 
-import com.example.reservation.dto.ReservationHistoryDto;
-import com.example.reservation.dto.request.ParentHistoryDto;
+import com.example.reservation.dto.ReservationDto;
 import com.example.reservation.entity.QLesson;
 import com.example.reservation.entity.QParent;
 import com.example.reservation.entity.QReservationHistory;
@@ -25,32 +24,34 @@ public class ReservationHistoryQueryDslRepositoryImpl implements ReservationHist
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ReservationHistoryDto> findAllMadeByQueryDsl(Long parentId, Long lessonId, LocalDate reservationDate) {
+    public List<ReservationDto.Response.ReservationHistory> findAllMadeByQueryDsl(Long parentId, Long storeId, Long lessonId, LocalDate reservationDate) {
         return queryFactory
                 .select(
-                        Projections.constructor(
-                                ReservationHistoryDto.class,
+                        Projections.fields(
+                                ReservationDto.Response.ReservationHistory.class,
                                 lesson.store.storeName,
                                 lesson.lessonName,
                                 parent.parentName,
                                 parent.email,
                                 reservationHistory.capacity,
-                                reservationHistory.reservationDate
+                                reservationHistory.reservationDate,
+                                reservationHistory.reservationStatus
                         )
                 )
                 .from(reservationHistory)
                 .join(reservationHistory.parent, parent)
                 .join(reservationHistory.lesson, lesson)
-                .where(
-                        searchBuilder(parentId, lessonId, reservationDate)
-                )
+                .where(searchBuilder(parentId, storeId, lessonId, reservationDate))
                 .fetch();
     }
 
-    private BooleanBuilder searchBuilder(Long parentId, Long lessonId, LocalDate reservationDate) {
+    private BooleanBuilder searchBuilder(Long parentId, Long storeId, Long lessonId, LocalDate reservationDate) {
         BooleanBuilder builder = new BooleanBuilder();
         if (parentId != null) {
             builder.and(parent.parentId.eq(parentId));
+        }
+        if (storeId != null) {
+            builder.and(lesson.store.storeId.eq(storeId));
         }
         if (lessonId != null) {
             builder.and(lesson.lessonId.eq(lessonId));

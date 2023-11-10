@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/reservation
+    url: jdbc:mysql://localhost:3300/reservation
     username: root
-    password: 12345678
+    password: 1234
   jpa:
     hibernate:
       ddl-auto: update
