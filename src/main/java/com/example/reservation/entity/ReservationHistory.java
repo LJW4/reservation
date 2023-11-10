@@ -18,35 +18,25 @@ import java.time.LocalDateTime;
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-@Table(name = "t_reservation_history", indexes = {
-        @Index(name = "idx_parent_id_lesson_id", columnList = "parent_id, lesson_id")
-})
+@Table(name = "t_reservation_history")
 public class ReservationHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "history_id")
     private Long historyId;
 
-    @Column(name = "parent_id")
-    private Long parentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private Parent parent;
 
-    @Column(name = "parent_name")
-    private String parentName;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "lesson_id")
-    private Long lessonId;
-
-    @Column(name = "lesson_name")
-    private String lessonName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lesson_id")
+    private Lesson lesson;
 
     @Comment("인원수")
     @Column(name = "capacity")
     private int capacity;
 
-    @CreatedDate
-    @Column(name = "created_date", nullable = false)
-    private LocalDate createdDate;
+    @Column(name = "reservation_date", nullable = false)
+    private LocalDate reservationDate;
 }

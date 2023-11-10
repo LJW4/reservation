@@ -4,13 +4,29 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class ReservationDto {
-    private String parentName;
-    private String lessonName;
-    private int capacity;
-    private LocalDate reservationTime;
+
+    @Getter @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class LessonReservation {
+        private Long parentId;
+        private Integer capacity;
+        private Long storeId;
+        private Long lessonId;
+        private LocalDate reservationDate;
+    }
+
+    @Getter @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ReservationHistory {
+        private String storeName;
+        private String lessonName;
+        private String parentName;
+        private String email;
+        private int capacity;
+    }
 }
