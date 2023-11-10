@@ -17,9 +17,10 @@ public class ParentController {
     @GetMapping("/api/parent/{parentId}/reservation-histories")
     public ResponseEntity<List<ReservationDto.Response.ReservationHistory>> findReservationHistories(
             @PathVariable("parentId") Long parentId,
+            @RequestParam(value = "storeId", required = false) Long storeId,
             @RequestParam(value = "lessonId", required = false) Long lessonId,
             @RequestParam(value = "reservationDate", required = false) LocalDate reservationDate
     ) {
-        return ResponseEntity.ok(reservationHistoryService.findHistoriesByParent(parentId, lessonId, reservationDate));
+        return ResponseEntity.ok(reservationHistoryService.findHistoriesByParent(parentId, storeId, lessonId, reservationDate));
     }
 }

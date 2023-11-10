@@ -1,16 +1,12 @@
 package com.example.reservation.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "t_store")
 public class Store {
@@ -34,4 +30,13 @@ public class Store {
     @Comment("상세 주소")
     @Column(name = "detail_address", nullable = false, length = 200)
     private String detailAddress;
+
+    public static Store create(String storeName, String postNumber, String address, String detailAddress) {
+        Store store = new Store();
+        store.storeName = storeName;
+        store.postNumber = postNumber;
+        store.address = address;
+        store.detailAddress = detailAddress;
+        return store;
+    }
 }

@@ -7,30 +7,25 @@ import java.time.LocalDate;
 
 public class ReservationDto {
     public static class Request {
-        @Getter @Setter
-        @NoArgsConstructor
-        @AllArgsConstructor
-        @Builder
-        public static class LessonReservation {
-            private Long parentId;
-            private Integer capacity;
-            private Long lessonId;
-            private LocalDate reservationDate;
+        public record LessonReservation(
+                Long parentId,
+                Integer capacity,
+                Long lessonId,
+                LocalDate reservationDate
+        ) {
         }
     }
 
     public static class Response {
-        @Getter @Setter
-        @NoArgsConstructor
-        @AllArgsConstructor
-        @Builder
-        public static class ReservationHistory {
-            private String storeName;
-            private String lessonName;
-            private String parentName;
-            private String email;
-            private int capacity;
-            private ReservationStatus reservationStatus;
+        public record ReservationHistory(
+                String storeName,
+                String lessonName,
+                String parentName,
+                String email,
+                int capacity,
+                LocalDate reservationDate,
+                ReservationStatus reservationStatus
+        ) {
         }
     }
 }

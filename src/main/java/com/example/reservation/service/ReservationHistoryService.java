@@ -15,8 +15,8 @@ public class ReservationHistoryService {
     private final ReservationHistoryRepository reservationHistoryRepository;
 
     @Transactional(readOnly = true)
-    public List<ReservationDto.Response.ReservationHistory> findHistoriesByParent(Long parentId, Long lessonId, LocalDate reservationDate) {
-        return reservationHistoryRepository.findAllMadeByQueryDsl(parentId, null, lessonId, reservationDate);
+    public List<ReservationDto.Response.ReservationHistory> findHistoriesByParent(Long parentId, Long storeId, Long lessonId, LocalDate reservationDate) {
+        return reservationHistoryRepository.findAllMadeByQueryDsl(parentId, storeId, lessonId, reservationDate);
     }
 
     @Transactional(readOnly = true)

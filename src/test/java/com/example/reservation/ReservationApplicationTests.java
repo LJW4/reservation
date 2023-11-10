@@ -28,7 +28,7 @@ class ReservationApplicationTests {
 
 	@Test
 	@Transactional
-	@Rollback(value = false)
+//	@Rollback(value = false)
 	void contextLoads() {
 //		Store savedStore = storeRepository.save(
 //				Store.builder()
@@ -49,16 +49,16 @@ class ReservationApplicationTests {
 //						)
 //						.collect(Collectors.toList())
 //		);
-		parentRepository.saveAll(
-				IntStream.iterate(2, i -> i + 1)
-						.limit(10)
-						.mapToObj(i -> Parent.builder()
-								.parentName("부모" + i)
-								.email("parent" + i + "@gmail.com")
-								.build()
-						)
-						.collect(Collectors.toList())
-		);
+//		parentRepository.saveAll(
+//				IntStream.iterate(2, i -> i + 1)
+//						.limit(10)
+//						.mapToObj(i -> Parent.builder()
+//								.parentName("부모" + i)
+//								.email("parent" + i + "@gmail.com")
+//								.build()
+//						)
+//						.collect(Collectors.toList())
+//		);
 	}
 
 }

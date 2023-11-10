@@ -1,16 +1,12 @@
 package com.example.reservation.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "t_lesson")
 public class Lesson {
@@ -30,4 +26,12 @@ public class Lesson {
     @Comment("최대 인원수")
     @Column(name = "max_capacity")
     private int maxCapacity;
+
+    public static Lesson create(Store store, String lessonName, int maxCapacity) {
+        Lesson lesson = new Lesson();
+        lesson.store = store;
+        lesson.lessonName = lessonName;
+        lesson.maxCapacity = maxCapacity;
+        return lesson;
+    }
 }

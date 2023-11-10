@@ -1,16 +1,12 @@
 package com.example.reservation.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "t_parent")
 public class Parent {
@@ -26,4 +22,11 @@ public class Parent {
     @Comment("이메일 주소")
     @Column(name = "email")
     private String email;
+
+    public static Parent create(String parentName, String email) {
+        Parent parent = new Parent();
+        parent.parentName = parentName;
+        parent.email = email;
+        return parent;
+    }
 }

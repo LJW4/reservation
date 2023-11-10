@@ -15,6 +15,6 @@ import java.util.List;
 
 @Repository
 public interface ReservationHistoryRepository extends JpaRepository<ReservationHistory, Long>, ReservationHistoryQueryDslRepository {
-    Boolean existsByParentAndLessonAndReservationDate(Parent parent, Lesson lesson, LocalDate createDate);
+    Boolean existsByParentAndLessonAndReservationDateAndReservationStatus(Parent parent, Lesson lesson, LocalDate createDate, ReservationStatus reservationStatus);
     List<ReservationHistory> findByLessonAndReservationDateAndReservationStatus(Lesson lesson, LocalDate reservationDate, ReservationStatus reservationStatus);
 }

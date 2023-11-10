@@ -27,7 +27,7 @@ public class ReservationHistoryQueryDslRepositoryImpl implements ReservationHist
     public List<ReservationDto.Response.ReservationHistory> findAllMadeByQueryDsl(Long parentId, Long storeId, Long lessonId, LocalDate reservationDate) {
         return queryFactory
                 .select(
-                        Projections.fields(
+                        Projections.constructor(
                                 ReservationDto.Response.ReservationHistory.class,
                                 lesson.store.storeName,
                                 lesson.lessonName,
@@ -42,6 +42,7 @@ public class ReservationHistoryQueryDslRepositoryImpl implements ReservationHist
                 .join(reservationHistory.parent, parent)
                 .join(reservationHistory.lesson, lesson)
                 .where(searchBuilder(parentId, storeId, lessonId, reservationDate))
+                .orderBy(reservationHistory.reservationDate.desc(), reservationHistory.historyId.desc())
                 .fetch();
     }
 
