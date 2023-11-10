@@ -77,11 +77,9 @@ public class ReservationService {
         List<ReservationHistory> findReservations = reservationHistoryRepository.findByLessonAndReservationDateAndReservationStatus(
                 findLesson, lessonReservationDto.reservationDate(), ReservationStatus.RESERVE
         );
-
         int currentCapacity = findReservations.stream()
                 .mapToInt(ReservationHistory::getCapacity)
                 .sum();
-
         if ((currentCapacity + lessonReservationDto.capacity()) > findLesson.getMaxCapacity()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "예약 가능한 인원을 초과하였습니다.");
         }
@@ -91,7 +89,6 @@ public class ReservationService {
         Boolean hasReservation = reservationHistoryRepository.existsByParentAndLessonAndReservationDateAndReservationStatus(
                 findParent, findLesson, lessonReservationDto.reservationDate(), ReservationStatus.RESERVE
         );
-
         if (hasReservation) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "해당 날짜에 이미 예약이 있습니다.");
         }
