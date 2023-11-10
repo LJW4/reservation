@@ -5,6 +5,7 @@ import com.example.reservation.dto.ReservationHistoryDto;
 import com.example.reservation.entity.Lesson;
 import com.example.reservation.entity.Parent;
 import com.example.reservation.entity.ReservationHistory;
+import com.example.reservation.repository.querydsl.ReservationHistoryQueryDslRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ReservationHistoryRepository extends JpaRepository<ReservationHistory, Long> {
+public interface ReservationHistoryRepository extends JpaRepository<ReservationHistory, Long>, ReservationHistoryQueryDslRepository {
     Boolean existsByParentAndLessonAndReservationDate(Parent parent, Lesson lesson, LocalDate createDate);;
 
     @Query(value = "select " +
