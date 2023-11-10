@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ReservationService {
     private final LessonRepository lessonRepository;
-    private final ReservationHistoryRepository reservationHistoryRepository;
     private final ParentRepository parentRepository;
+    private final ReservationHistoryRepository reservationHistoryRepository;
 
     @Transactional
     public void lessonReservation(ReservationDto.LessonReservation lessonReservationDto) {
@@ -29,9 +29,11 @@ public class ReservationService {
         Boolean hasReservation = reservationHistoryRepository.existsByParentAndLessonAndReservationDate(
                 findParent, findLesson, lessonReservationDto.getReservationDate()
         );
+
         if (hasReservation) {
-            throw new RuntimeException("해당 날짜에 이미 수업 예약이 있습니다.");
+            throw new RuntimeException("해당 날짜에 이미 예약이 있습니다.");
         }
+
         reservationHistoryRepository.save(
                 ReservationHistory.builder()
                         .parent(findParent)
